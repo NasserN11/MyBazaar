@@ -25,7 +25,7 @@ public class Customer extends Person {
         this.customerID = customerID;
         this.password = password;
         this.balance = 0.0;
-        this.status = 0;
+        this.status = CLASSIC;
         this.shoppingCart = new ArrayList<>();
         this.orderHistory = new ArrayList<>();
     }
@@ -84,5 +84,10 @@ public class Customer extends Person {
         else {
             System.out.println("The given password does not match the current password. Please try again.");
         }
+    }
+
+
+    public void updateBalance(double amount) {
+        this.balance += amount;
     }
 }
