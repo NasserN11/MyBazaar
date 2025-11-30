@@ -1,9 +1,17 @@
-public class Item {
+public abstract class Item {
 
-    // Private attributes
+    // Item attributes
     private int itemID;
     private double price;
     private int stock;
+
+
+    // Constructor
+    public Item(int itemID, double price, int stock) {
+        this.itemID = itemID;
+        this.price = price;
+        this.stock = stock;
+    }
 
 
     // Getters
@@ -15,5 +23,13 @@ public class Item {
 
 
     // Setters
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
+
+    // Methods
+    public String toString() {
+        return "Item ID: " + itemID + " Price: $" + price + " Stock: " + stock;
+    }
 }
