@@ -7,6 +7,13 @@ public class Customer extends Person {
     public static final int SILVER = 1;
     public static final int GOLDEN = 2;
 
+    public static final double SILVER_THRESHOLD = 1000.0;
+    public static final double GOLDEN_THRESHOLD = 5000.0;
+
+
+    public static final double SILVER_DISCOUNT_RATE = 0.10;
+    public static final double GOLDEN_DISCOUNT_RATE = 0.15;
+
 
     // Customer attributes
     private int customerID;
@@ -15,6 +22,8 @@ public class Customer extends Person {
     private int status;
     private ArrayList<Item> shoppingCart;
     private ArrayList<Order> orderHistory;
+
+    private double totalSpent = 0.0;
 
 
     // Constructor
@@ -48,6 +57,8 @@ public class Customer extends Person {
         return status;
     }
 
+    public double getTotalSpent() { return totalSpent; }
+
 
     // Setters
     public void setPassword(String password) {
@@ -57,6 +68,8 @@ public class Customer extends Person {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    public void setTotalSpent(double totalSpent) { this.totalSpent = totalSpent; }
 
 
     // Methods
@@ -89,5 +102,16 @@ public class Customer extends Person {
 
     public void updateBalance(double amount) {
         this.balance += amount;
+    }
+
+
+    public void clearCart() {
+        if (!shoppingCart.isEmpty()) {
+            shoppingCart.clear();
+            System.out.println("The cart has been emptied.");
+        }
+        else {
+            System.out.println("The cart is already empty.");
+        }
     }
 }
