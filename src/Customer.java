@@ -119,8 +119,15 @@ public class Customer extends Person {
     public void addToCart(Item item) {
         if (item.getStock() > 0) {
             shoppingCart.add(item);
-            System.out.println("The item " + item.get);
+            System.out.println("The item " + item.getItemType() + " has been successfully added to your cart.");
         }
+        else {
+            System.out.println("We are sorry. The item is temporarily unavailable.");
+        }
+    }
+
+
+    public void viewCampaigns() {
 
     }
 }
