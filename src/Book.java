@@ -11,7 +11,7 @@ public class Book extends OfficeSupplies {
                 String releaseDate, String coverTitle,
                 String publisher, String author, int numberOfPages) {
 
-        super(itemID, price, stock, releaseDate, coverTitle);
+        super(itemID, price, stock, "BOOK", releaseDate, coverTitle);
 
         this.publisher = publisher;
         this.author = author;

@@ -9,7 +9,7 @@ public class SkinCare extends Cosmetic {
                    String manufacturer, String brand, String expirationDate, double weight, boolean isOrganic,
                    boolean isBabySensitive) {
 
-        super(itemID, price, stock, manufacturer, brand, expirationDate, weight, isOrganic);
+        super(itemID, price, stock, "SkinCare", manufacturer, brand, expirationDate, weight, isOrganic);
 
         this.isBabySensitive = isBabySensitive;
     }

@@ -6,9 +6,9 @@ public class OfficeSupplies extends Item {
 
 
     // Constructor
-    public OfficeSupplies(int itemID, double price, int stock, String releaseDate, String coverTitle) {
+    public OfficeSupplies(int itemID, double price, int stock, String itemType, String releaseDate, String coverTitle) {
 
-        super(itemID, price, stock);
+        super(itemID, price, stock, itemType);
 
         this.releaseDate = releaseDate;
         this.coverTitle = coverTitle;

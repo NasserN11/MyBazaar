@@ -8,9 +8,9 @@ public class Electronic extends Item {
 
 
     // Constructor
-    public Electronic(int itemID, double price, int stock, String manufacturer, String brand, int maxVolt, int maxWatt) {
+    public Electronic(int itemID, double price, int stock, String itemType, String manufacturer, String brand, int maxVolt, int maxWatt) {
 
-        super(itemID, price, stock);
+        super(itemID, price, stock, itemType);
 
         this.manufacturer = manufacturer;
         this.brand = brand;

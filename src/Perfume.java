@@ -9,7 +9,7 @@ public class Perfume extends Cosmetic {
                    String manufacturer, String brand, String expirationDate, double weight, boolean isOrganic,
                    int lastingDuration) {
 
-        super(itemID, price, stock, manufacturer, brand, expirationDate, weight, isOrganic);
+        super(itemID, price, stock, "PERFUME", manufacturer, brand, expirationDate, weight, isOrganic);
 
         this.lastingDuration = lastingDuration;
     }

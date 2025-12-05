@@ -10,7 +10,7 @@ public class Tablet extends Computer {
                   String operatingSystem, String CPU_Type, int RAM, int HDD,
                   String dimensions) {
 
-        super(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD);
+        super(itemID, price, stock, "TABLET", manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD);
 
         this.dimensions = dimensions;
     }

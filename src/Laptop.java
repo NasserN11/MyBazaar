@@ -10,7 +10,7 @@ public class Laptop extends Computer {
                   String operatingSystem, String CPU_Type, int RAM, int HDD,
                   boolean has_HDMI_Support) {
 
-        super(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD);
+        super(itemID, price, stock, "LAPTOP", manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD);
 
         this.has_HDMI_Support = has_HDMI_Support;
     }

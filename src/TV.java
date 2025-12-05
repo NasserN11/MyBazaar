@@ -9,7 +9,7 @@ public class TV extends Electronic {
               String manufacturer, String brand, int maxVolt, int maxWatt,
               double screenSize) {
 
-        super(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt);
+        super(itemID, price, stock, "TV", manufacturer, brand, maxVolt, maxWatt);
 
         this.screenSize = screenSize;
     }

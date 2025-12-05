@@ -8,9 +8,9 @@ public class Cosmetic extends Item {
     private boolean isOrganic;
 
     // Constructors
-    public Cosmetic(int itemID, double price, int stock, String manufacturer, String brand, String expirationDate, double weight, boolean isOrganic) {
+    public Cosmetic(int itemID, double price, int stock, String itemType, String manufacturer, String brand, String expirationDate, double weight, boolean isOrganic) {
 
-        super(itemID, price, stock);
+        super(itemID, price, stock, itemType);
 
         this.manufacturer = manufacturer;
         this.brand = brand;

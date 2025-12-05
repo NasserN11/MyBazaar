@@ -10,7 +10,7 @@ public class CD_DVD extends OfficeSupplies {
                   String releaseDate, String coverTitle,
                   String composer, String songs) {
 
-        super(itemID, price, stock, releaseDate, coverTitle);
+        super(itemID, price, stock, "CD_DVD", releaseDate, coverTitle);
 
         this.composer = composer;
         this.songs = songs;

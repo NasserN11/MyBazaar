@@ -114,4 +114,13 @@ public class Customer extends Person {
             System.out.println("The cart is already empty.");
         }
     }
+
+
+    public void addToCart(Item item) {
+        if (item.getStock() > 0) {
+            shoppingCart.add(item);
+            System.out.println("The item " + item.get);
+        }
+
+    }
 }

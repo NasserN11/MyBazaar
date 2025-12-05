@@ -1,16 +1,18 @@
 public abstract class Item {
 
     // Item attributes
+    private String itemType;
     private int itemID;
     private double price;
     private int stock;
 
 
     // Constructor
-    public Item(int itemID, double price, int stock) {
+    public Item(int itemID, double price, int stock, String itemType) {
         this.itemID = itemID;
         this.price = price;
         this.stock = stock;
+        this.itemType = itemType;
     }
 
 
@@ -20,6 +22,8 @@ public abstract class Item {
     public double getPrice() { return price; }
 
     public int getStock() { return stock; }
+
+    public String getItemType() { return itemType; }
 
 
     // Setters

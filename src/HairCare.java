@@ -9,7 +9,7 @@ public class HairCare extends Cosmetic {
                    String manufacturer, String brand, String expirationDate, double weight, boolean isOrganic,
                    boolean isMedicated) {
 
-        super(itemID, price, stock, manufacturer, brand, expirationDate, weight, isOrganic);
+        super(itemID, price, stock, "HairCare", manufacturer, brand, expirationDate, weight, isOrganic);
 
         this.isMedicated = isMedicated;
     }

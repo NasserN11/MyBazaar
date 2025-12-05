@@ -8,11 +8,11 @@ public class Computer extends Electronic {
 
 
     // Constructor
-    public Computer(int itemID, double price, int stock,
+    public Computer(int itemID, double price, int stock, String itemType,
                     String manufacturer, String brand, int maxVolt, int maxWatt,
                     String operatingSystem, String CPU_Type, int RAM, int HDD) {
 
-        super(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt);
+        super(itemID, price, stock, itemType, manufacturer, brand, maxVolt, maxWatt);
 
         this.operatingSystem = operatingSystem;
         this.CPU_Type = CPU_Type;

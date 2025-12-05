@@ -10,7 +10,7 @@ public class Desktop extends Computer {
                    String operatingSystem, String CPU_Type, int RAM, int HDD,
                    String boxColor) {
 
-        super(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD);
+        super(itemID, price, stock, "DESKTOP", manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD);
 
         this.boxColor = boxColor;
     }
