@@ -1,4 +1,4 @@
-public class OfficeSupplies extends Item {
+public abstract class OfficeSupplies extends Item {
 
     // OfficeSupplies attributes
     private String releaseDate;

@@ -1,4 +1,4 @@
-public class Cosmetic extends Item {
+public abstract class Cosmetic extends Item {
 
     // Cosmetic attributes
     private String manufacturer;

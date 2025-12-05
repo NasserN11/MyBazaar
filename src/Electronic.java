@@ -1,4 +1,4 @@
-public class Electronic extends Item {
+public abstract class Electronic extends Item {
 
     // Electronic attributes
     private String manufacturer;
