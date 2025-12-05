@@ -1,4 +1,4 @@
-public class Computer extends Electronic {
+public abstract class Computer extends Electronic {
 
     // Computer attributes
     private String operatingSystem;
