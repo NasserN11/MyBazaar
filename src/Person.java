@@ -24,7 +24,7 @@ public abstract class Person {
 
     // Methods
     public String toString() {
-        return "name: " + name + ", email: " + email + "date of birth: " + dateOfBirth;
+        return "name: " + name + ", e-mail: " + email + "date of birth: " + dateOfBirth;
     }
 
     public void displayPersonalData() {

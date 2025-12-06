@@ -25,4 +25,14 @@ public class Admin extends Employee {
 
 
     // Methods
+    public String toString() {
+        return "Password: " + password;
+    }
+
+    @Override
+    public void displayPersonalData() {
+        System.out.println("Admin name: " + getName());
+        System.out.println("Admin e-mail: " + getEmail());
+        System.out.println("Admin date of birth: " + getDateOfBirth());
+    }
 }
