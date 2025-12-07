@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyBazaar {
 
@@ -99,7 +101,7 @@ public class MyBazaar {
             while ((line = br.readLine()) != null) {
 
                 // Split line by tabs
-                String[] parts = line.split("\\s+");
+                String[] parts = line.split("\t");
 
 
                 if (parts[0].equals("DESKTOP")) {
@@ -121,6 +123,7 @@ public class MyBazaar {
 
                     allItems.add(desktop);
                 }
+
                 else if (parts[0].equals("LAPTOP")) {
 
                     int itemID = nextItemID++;
@@ -139,6 +142,7 @@ public class MyBazaar {
                     Laptop laptop = new Laptop(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD, has_HDMI_Support);
                     allItems.add(laptop);
                 }
+
                 else if (parts[0].equals("TABLET")) {
 
                     int itemID = nextItemID++;
@@ -156,30 +160,116 @@ public class MyBazaar {
 
                     Tablet tablet = new Tablet(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, operatingSystem, CPU_Type, RAM, HDD, dimensions);
                     allItems.add(tablet);
-
                 }
+
                 else if (parts[0].equals("TV")) {
 
+                    int itemID = nextItemID++;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String manufacturer = parts[2];
+                    String brand = parts[3];
+                    int maxVolt = Integer.parseInt(parts[4]);
+                    int maxWatt = Integer.parseInt(parts[5]);
+                    double screenSize = Double.parseDouble(parts[6]);
+
+                    TV tv = new TV(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, screenSize);
+                    allItems.add(tv);
                 }
+
                 else if (parts[0].equals("SMARTPHONE")) {
 
+                    int itemID = nextItemID++;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String manufacturer = parts[2];
+                    String brand = parts[3];
+                    int maxVolt = Integer.parseInt(parts[4]);
+                    int maxWatt = Integer.parseInt(parts[5]);
+                    String screenType = parts[6];
+
+                    SmartPhone smartPhone = new SmartPhone(itemID, price, stock, manufacturer, brand, maxVolt, maxWatt, screenType);
+                    allItems.add(smartPhone);
                 }
+
                 else if (parts[0].equals("BOOK")) {
 
+                    int itemID = nextItemID++;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String releaseDate = parts[2];
+                    String coverTitle = parts[3];
+                    String publisher = parts[4];
+                    String author = parts[5];
+                    int numberOfPages = Integer.parseInt(parts[6]);
+
+                    Book book = new Book(itemID, price, stock, releaseDate, coverTitle, publisher, author, numberOfPages);
+                    allItems.add(book);
                 }
+
                 else if (parts[0].equals("CDDVD")) {
 
+                    int itemID = nextItemID++;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String releaseDate = parts[2];
+                    String coverTitle = parts[3];
+                    String composer = parts[4];
+                    String songs = parts[5];
+
+                    CD_DVD cd_dvd = new CD_DVD(itemID, price, stock, releaseDate, coverTitle, composer, songs);
+                    allItems.add(cd_dvd);
                 }
+
                 else if (parts[0].equals("HAIRCARE")) {
+
+                    int itemID = nextItemID;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String manufacturer = parts[2];
+                    String brand = parts[3];
+                    String expirationDate = parts[5];
+                    double weight = Double.parseDouble(parts[6]);
+                    boolean isOrganic = Boolean.parseBoolean(parts[4]);
+                    boolean isMedicated = Boolean.parseBoolean(parts[7]);
+
+                    HairCare hairCare = new HairCare(itemID, price, stock, manufacturer, brand, expirationDate, weight, isOrganic, isMedicated);
+                    allItems.add(hairCare);
 
                 }
                 else if (parts[0].equals("SKINCARE")) {
 
+                    int itemID = nextItemID;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String manufacturer = parts[2];
+                    String brand = parts[3];
+                    String expirationDate = parts[5];
+                    double weight = Double.parseDouble(parts[6]);
+                    boolean isOrganic = Boolean.parseBoolean(parts[4]);
+                    boolean isBabySensitive = Boolean.parseBoolean(parts[7]);
+
+                    SkinCare skinCare = new SkinCare(itemID, price, stock, manufacturer, brand, expirationDate, weight, isOrganic, isBabySensitive);
+                    allItems.add(skinCare);
+
                 }
+
                 else if (parts[0].equals("PERFUME")) {
 
-                }
+                    int itemID = nextItemID;
+                    double price = Double.parseDouble(parts[1]);
+                    int stock = 10;
+                    String manufacturer = parts[2];
+                    String brand = parts[3];
+                    String expirationDate = parts[5];
+                    double weight = Double.parseDouble(parts[6]);
+                    boolean isOrganic = Boolean.parseBoolean(parts[4]);
+                    int lastingDuration = Integer.parseInt(parts[7]);
 
+                    Perfume perfume = new Perfume(itemID, price, stock, manufacturer, brand, expirationDate, weight, isOrganic, lastingDuration);
+                    allItems.add(perfume);
+
+                }
             }
 
 
