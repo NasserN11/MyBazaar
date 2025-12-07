@@ -85,7 +85,11 @@ public class Customer extends Person {
             statusInText = "GOLDEN";
         }
 
-        return "Customer name: " + getName() + " ID: " + customerID + " Balance: $" + balance + " Status: " + statusInText;
+        return "Customer name: " + getName() +
+                " ID: " + customerID +
+                " e-mail: " + getEmail() +
+                " Date of Birth " + getDateOfBirth() +
+                " Status: " + statusInText;
     }
 
 
