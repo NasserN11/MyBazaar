@@ -1,4 +1,5 @@
 import javax.lang.model.util.ElementScanner6;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.io.*;
 import java.io.BufferedReader;
@@ -36,7 +37,7 @@ public class MyBazaar {
         while ((line = br.readLine()) != null) {
 
             // Split line by tabs
-            String[] parts = line.split("\t");
+            String[] parts = line.split("\\s+");
 
             // Check first part
             if (parts[0].equals("ADMIN")) {
@@ -82,7 +83,7 @@ public class MyBazaar {
         br.close();
 
         } catch (IOException e) {
-            System.out.println("Error! (users.txt)");
+            System.out.println("ERROR loading users: ");
         }
     }
 
@@ -98,14 +99,14 @@ public class MyBazaar {
             while ((line = br.readLine()) != null) {
 
                 // Split line by tabs
-                String[] parts = line.split("\t");
+                String[] parts = line.split("\\s+");
 
 
                 if (parts[0].equals("DESKTOP")) {
 
                     int itemID = nextItemID++;
                     double price = Double.parseDouble(parts[1]);
-                    int stock;
+                    int stock = 0;
                     String manufacturer = parts[2];
                     String brand = parts[3];
                     int maxVolt = Integer.parseInt(parts[4]);
@@ -124,7 +125,7 @@ public class MyBazaar {
 
                     int itemID = nextItemID++;
                     double price = Double.parseDouble(parts[1]);
-                    int stock;
+                    int stock = 0;
                     String manufacturer = parts[2];
                     String brand = parts[3];
                     int maxVolt = Integer.parseInt(parts[4]);
@@ -142,7 +143,7 @@ public class MyBazaar {
 
                     int itemID = nextItemID++;
                     double price = Double.parseDouble(parts[1]);
-                    int stock;
+                    int stock = 0;
                     String manufacturer = parts[2];
                     String brand = parts[3];
                     int maxVolt = Integer.parseInt(parts[4]);
@@ -196,7 +197,7 @@ public class MyBazaar {
             String line;
 
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\t");
+                String[] parts = line.split("\\s+");
                 String command = parts[0];
 
                 // Route to appropriate handler
@@ -298,10 +299,45 @@ public class MyBazaar {
         }
     }
 
-    // Helper method stubs - you'll implement these
-    private void handleChangePassword(String customerID, String oldPassword, String newPassword) {}
+    // Helper method stubs
 
-    private void handleDepositMoney(String customerID, String amount) {}
+    // Customer
+    private void handleChangePassword(String customerID, String oldPassword, String newPassword) {
+
+        int ID = Integer.parseInt(customerID);
+
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+
+                if (customer.getCustomerID() == ID) {
+                    customer.changePassword(oldPassword, newPassword);
+                    return;
+                }
+            }
+        }
+        System.out.println("No customer with ID number " + ID + " exists!");
+
+    }
+
+    public void handleDepositMoney(String customerID, String amountInStr) {
+
+        int ID = Integer.parseInt(customerID);
+        double amount = Double.parseDouble(amountInStr);
+
+        // Find customer
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+                if (customer.getCustomerID() == ID) {
+                    customer.updateBalance(amount);
+                    return;
+                }
+            }
+        }
+
+        System.out.println("No customer with ID number " + ID + " exists!");
+    }
 
     private void handleShowCampaigns(String customerID) {}
 
@@ -311,15 +347,71 @@ public class MyBazaar {
 
     private void handleOrder(String customerID, String password) {}
 
+
+    // Admin
     private void handleAddCustomer(String adminName, String customerName, String email,
 
                                    String dateOfBirth, String initialBalance, String password) {}
 
-    private void handleShowCustomer(String adminName, String customerID) {}
+    private void handleShowCustomer(String adminName, String customerID) {
 
-    private void handleShowCustomers(String adminName) {}
+        int ID = Integer.parseInt(customerID);
 
-    public void handleShowAdminInfo(String adminName) {
+        // Find admin
+        boolean adminExists = false;
+        for (Person p : allUsers) {
+            if (p instanceof Admin && p.getName().equals(adminName)) {
+                adminExists = true;
+                break;
+            }
+        }
+
+        if (!adminExists) {
+            System.out.println("No admin person named " + adminName + " exists!");
+            return;
+        }
+
+        // Find customer
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+                if (customer.getCustomerID() == ID) {
+                    System.out.println(p.toString());
+                    return;
+                }
+            }
+        }
+
+        System.out.println("Customer not found!");
+    }
+
+    private void handleShowCustomers(String adminName) {
+
+        boolean adminExists = false;
+
+        // Find admin
+        for (Person p : allUsers) {
+            if (p instanceof Admin && p.getName().equals(adminName)) {
+                adminExists = true;
+                break;
+            }
+        }
+
+        if (!adminExists) {
+            System.out.println("No admin person named " + adminName + " exists!");
+            return;
+        }
+
+        // List all customers
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+                System.out.println(customer);
+            }
+        }
+    }
+
+    private void handleShowAdminInfo(String adminName) {
 
         for (Person p : allUsers) {
             if (p instanceof Admin && p.getName().equals(adminName)) {
@@ -328,7 +420,7 @@ public class MyBazaar {
                 return;
             }
         }
-        System.out.println("No admin person named" + adminName + " exists!");;
+        System.out.println("No admin person named " + adminName + " exists!");;
 
     }
 
@@ -341,12 +433,16 @@ public class MyBazaar {
     private void handleAddTech(String adminName, String newTechName, String newTechEmail,
                                String newTechDateOfBirth, String newTechSalary, String isSenior) {}
 
+
+    // Employee (Admin & Tech)
     private void handleListItem(String employeeName) {}
 
     private void handleShowItemsLowOnStock(String employeeName, String maxStock) {}
 
     private void handleShowVIP(String employeeName) {}
 
+
+    // Tech
     private void handleDisplayItemsOf(String technicianName, String types) {}
 
     private void handleAddItem(String technicianName, String itemData) {}

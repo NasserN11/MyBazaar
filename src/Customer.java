@@ -88,7 +88,7 @@ public class Customer extends Person {
         return "Customer name: " + getName() +
                 " ID: " + customerID +
                 " e-mail: " + getEmail() +
-                " Date of Birth " + getDateOfBirth() +
+                " Date of Birth: " + getDateOfBirth() +
                 " Status: " + statusInText;
     }
 
