@@ -223,7 +223,7 @@ public class MyBazaar {
 
                 else if (parts[0].equals("HAIRCARE")) {
 
-                    int itemID = nextItemID;
+                    int itemID = nextItemID++;
                     double price = Double.parseDouble(parts[1]);
                     int stock = 10;
                     String manufacturer = parts[2];
@@ -239,7 +239,7 @@ public class MyBazaar {
                 }
                 else if (parts[0].equals("SKINCARE")) {
 
-                    int itemID = nextItemID;
+                    int itemID = nextItemID++;
                     double price = Double.parseDouble(parts[1]);
                     int stock = 10;
                     String manufacturer = parts[2];
@@ -256,7 +256,7 @@ public class MyBazaar {
 
                 else if (parts[0].equals("PERFUME")) {
 
-                    int itemID = nextItemID;
+                    int itemID = nextItemID++;
                     double price = Double.parseDouble(parts[1]);
                     int stock = 10;
                     String manufacturer = parts[2];
@@ -431,7 +431,48 @@ public class MyBazaar {
 
     private void handleShowCampaigns(String customerID) {}
 
-    private void handleAddToCart(String customerID, String itemID) {}
+    private void handleAddToCart(String customerID_str, String itemID_str) {
+
+        int customerID = Integer.parseInt(customerID_str);
+        int itemID = Integer.parseInt(itemID_str);
+
+        // Find customer
+        Customer targetCustomer = null;
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+                if (customer.getCustomerID() == customerID) {
+                    targetCustomer = customer;
+                    break;
+                }
+            }
+        }
+
+        if (targetCustomer == null) {
+            System.out.println("No customer with ID number " + customerID + " exists!");
+            return;
+        }
+
+
+        // Find item
+        Item targetItem = null;
+        for (Item t : allItems) {
+            if (t instanceof Item) {
+                Item item = (Item) t;
+                if (item.getItemID() == itemID) {
+                    targetItem = item;
+                    break;
+                }
+            }
+        }
+
+        if (targetItem == null) {
+            System.out.println("Invalid item ID");
+            return;
+        }
+
+        targetCustomer.addToCart(targetItem);
+    }
 
     private void handleEmptyCart(String customerID) {}
 
@@ -525,7 +566,28 @@ public class MyBazaar {
 
 
     // Employee (Admin & Tech)
-    private void handleListItem(String employeeName) {}
+    public void handleListItem(String employeeName) {
+
+        boolean employeeExists = false;
+
+        // Find employee (Admin or Tech)
+        for (Person p : allUsers) {
+            if ((p instanceof Admin || p instanceof Technician) && p.getName().equals(employeeName)) {
+                employeeExists = true;
+                break;
+            }
+        }
+
+        if (!employeeExists) {
+            System.out.println("No admin or technician person named " + employeeName + " exists!");
+            return;
+        }
+
+        for (Item item : allItems) {
+            item.displayItemInfo();
+            System.out.println("-----------------------");
+        }
+    }
 
     private void handleShowItemsLowOnStock(String employeeName, String maxStock) {}
 

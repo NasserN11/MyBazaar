@@ -36,4 +36,6 @@ public abstract class Item {
     public String toString() {
         return "Item ID: " + itemID + " Price: $" + price + " Stock: " + stock;
     }
+
+    public abstract void displayItemInfo();
 }
