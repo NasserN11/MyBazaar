@@ -27,4 +27,15 @@ public class CD_DVD extends OfficeSupplies {
     public String toString() {
         return "Composer: " + composer + " Songs: " + songs;
     }
+
+    @Override
+    public void displayItemInfo() {
+        System.out.println("Type: " + getItemType());
+        System.out.println("Item ID: " + getItemID());
+        System.out.println("Price: " + getPrice() + " $");
+        System.out.println("Release Date: " + getReleaseDate());
+        System.out.println("Title: " + getCoverTitle());
+        System.out.println("Composer: " + composer);
+        System.out.println("Songs: " + songs);
+    }
 }

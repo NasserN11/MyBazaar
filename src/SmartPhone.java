@@ -23,4 +23,16 @@ public class SmartPhone extends Electronic {
     public String toString() {
         return "ScreenType; " + screenType;
     }
+
+    @Override
+    public void displayItemInfo() {
+        System.out.println("Type: SmartPhone");
+        System.out.println("Item ID: " + getItemID());
+        System.out.println("Price: " + getPrice() + " $");
+        System.out.println("Manufacturer: " + getManufacturer());
+        System.out.println("Brand: " + getBrand());
+        System.out.println("Max Volt: " + getMaxVolt() + " V.");
+        System.out.println("Max Watt: " + getMaxWatt() + " W.");
+        System.out.println("Screen Type: " + screenType);
+    }
 }

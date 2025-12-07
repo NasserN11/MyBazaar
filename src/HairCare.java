@@ -23,4 +23,17 @@ public class HairCare extends Cosmetic {
     public String toString() {
         return "IsMedicated: " + isMedicated;
     }
+
+    @Override
+    public void displayItemInfo() {
+        System.out.println("Type: HairCare");
+        System.out.println("Item ID: " + getItemID());
+        System.out.println("Price: " + getPrice() + " $");
+        System.out.println("Manufacturer: " + getManufacturer());
+        System.out.println("Brand: " + getBrand());
+        System.out.println("Organic: " + (getIsOrganic() ? "Yes" : "No"));
+        System.out.println("Expiration Date: " + getExpirationDate());
+        System.out.println("Weight: " + getWeight() + " g.");
+        System.out.println("Medicated: " + (isMedicated ? "Yes" : "No"));
+    }
 }

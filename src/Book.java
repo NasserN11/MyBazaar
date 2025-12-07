@@ -31,4 +31,16 @@ public class Book extends OfficeSupplies {
     public String toString() {
         return "Publisher: " + publisher + " Author: " + author + " Pages: " + numberOfPages;
     }
+
+    @Override
+    public void displayItemInfo() {
+        System.out.println("Type: Book");
+        System.out.println("Item ID: " + getItemID());
+        System.out.println("Price: " + getPrice() + " $");
+        System.out.println("Release Date: " + getReleaseDate());
+        System.out.println("Title: " + getCoverTitle());
+        System.out.println("Publisher: " + publisher);
+        System.out.println("Author: " + author);
+        System.out.println("Page: " + numberOfPages + " pages");
+    }
 }
