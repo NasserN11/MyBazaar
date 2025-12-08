@@ -192,9 +192,10 @@ public class Customer extends Person {
         // Create and save order
         String currentDate = "Current Date";
         Order order = new Order(customerID, shoppingCart, total, currentDate);
-
+        orderHistory.add(order);
+        
         // Check status upgrade
-
+        checkAndUpdateStatus();
 
         // Clear cart
         shoppingCart.clear();

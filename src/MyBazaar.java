@@ -496,7 +496,29 @@ public class MyBazaar {
         targetCustomer.addToCart(targetItem);
     }
 
-    private void handleEmptyCart(String customerID) {}
+    private void handleEmptyCart(String customerID_str) {
+
+        int customerID = Integer.parseInt(customerID_str);
+
+        // Find customer
+        Customer targetCustomer = null;
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+                if (customer.getCustomerID() == customerID) {
+                    targetCustomer = customer;
+                    break;
+                }
+            }
+        }
+
+        if (targetCustomer == null) {
+            System.out.println("No customer with ID number " + customerID + " exists!");
+            return;
+        }
+
+        targetCustomer.clearCart();;
+    }
 
     private void handleOrder(String customerID_str, String password) {
 
@@ -625,13 +647,96 @@ public class MyBazaar {
     }
 
     private void handleCreateCampaign(String adminName, String startDate, String endDate,
-                                      String itemType, String rate) {}
+                                      String itemType, String rate) {
+
+        // Find admin
+        boolean adminExists = false;
+        for (Person p : allUsers) {
+            if (p instanceof  Admin && p.getName().equals(adminName)) {
+                adminExists = true;
+                break;
+            }
+        }
+
+        if (!adminExists) {
+            System.out.println("No admin person named " + adminName + " exists!");
+            return;
+        }
+
+        double discountRate = Double.parseDouble(rate);
+
+        // Check max discount (50%)
+        if (discountRate > 50.0) {
+            System.out.println("Campaign was not created. Discount rate exceeds maximum rate of 50%.");
+            return;
+        }
+
+        // Check if campaign for item type already exists
+        for (Campaign c : allCampaigns) {
+            if (c.getItemType().equals(itemType)) {
+                System.out.println("Campaign for " + itemType + " already exists!");
+                return;
+            }
+        }
+
+        // Create and store campaign
+        Campaign campaign = new Campaign(itemType, startDate, endDate, discountRate);
+        allCampaigns.add(campaign);
+
+        System.out.println("Campaign created succuessfully: " + discountRate + "% off on " + itemType + " from " + startDate + " to " + endDate);
+    }
 
     private void handleAddAdmin(String adminName, String newAdminName, String newAdminEmail,
-                                String newAdminDateOfBirth, String newAdminSalary, String newAdminPassword) {}
+                                String newAdminDateOfBirth, String newAdminSalary, String newAdminPassword) {
+
+        // Find admin
+        boolean adminExists = false;
+        for (Person p : allUsers) {
+            if (p instanceof Admin && p.getName().equals(adminName)) {
+                adminExists = true;
+                break;
+            }
+        }
+
+        if (!adminExists) {
+            System.out.println("No admin person named " + adminName + " exists!");
+            return;
+        }
+
+        // Create new admin
+        double salary = Double.parseDouble(newAdminSalary);
+        Admin newAdmin = new Admin(newAdminName, newAdminEmail, newAdminDateOfBirth, salary, newAdminPassword);
+
+        allUsers.add(newAdmin);
+        System.out.println("Admin " + newAdminName + " added successfully.");
+    }
 
     private void handleAddTech(String adminName, String newTechName, String newTechEmail,
-                               String newTechDateOfBirth, String newTechSalary, String isSenior) {}
+                               String newTechDateOfBirth, String newTechSalary, String isSenior_str) {
+
+        // Find admin
+        boolean adminExists = false;
+        for (Person p : allUsers) {
+            if (p instanceof Admin && p.getName().equals(adminName)) {
+                adminExists = true;
+                break;
+            }
+        }
+
+        if (!adminExists) {
+            System.out.println("No admin person named " + adminName + " exists!");
+            return;
+        }
+
+        // Create new technician
+        double salary = Double.parseDouble(newTechSalary);
+        boolean isSenior = Boolean.parseBoolean(isSenior_str);
+
+        Technician newTech = new Technician(newTechName, newTechEmail, newTechDateOfBirth, salary, isSenior);
+        allUsers.add(newTech);
+
+        System.out.println("Technician " + newTechName + " added successfully.");
+    }
 
 
     // Employee (Admin & Tech)
@@ -666,7 +771,9 @@ public class MyBazaar {
     // Tech
     private void handleDisplayItemsOf(String technicianName, String types) {}
 
-    private void handleAddItem(String technicianName, String itemData) {}
+    private void handleAddItem(String technicianName, String itemData) {
+
+    }
 
     private void handleShowOrders(String technicianName) {}
 }
