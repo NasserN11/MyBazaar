@@ -60,6 +60,8 @@ public class Customer extends Person {
 
     public double getTotalSpent() { return totalSpent; }
 
+    public ArrayList<Order> getOrderHistory() { return orderHistory; }
+
 
     // Setters
     public void setPassword(String password) {
@@ -117,17 +119,6 @@ public class Customer extends Person {
         }
         else {
             System.out.println("The cart is already empty.");
-        }
-    }
-
-
-    public void addToCart(Item item) {
-        if (item.getStock() > 0) {
-            shoppingCart.add(item);
-            System.out.println("The item " + item.getItemType() + " has been successfully added to your cart.");
-        }
-        else {
-            System.out.println("We are sorry. The item is temporarily unavailable.");
         }
     }
 
@@ -193,7 +184,7 @@ public class Customer extends Person {
         String currentDate = "Current Date";
         Order order = new Order(customerID, shoppingCart, total, currentDate);
         orderHistory.add(order);
-        
+
         // Check status upgrade
         checkAndUpdateStatus();
 
@@ -219,6 +210,21 @@ public class Customer extends Person {
     }
 
 
+    public void addToCart(Item item) {
+        if (item.getStock() > 0) {
+            shoppingCart.add(item);
+            System.out.println("The item " + item.getItemType() + " has been successfully added to your cart.");
+        }
+        else {
+            System.out.println("We are sorry. The item is temporarily unavailable.");
+        }
+    }
+
+
+
+
+
+
     private void checkAndUpdateStatus() {
         if (totalSpent >= GOLDEN_THRESHOLD && status != GOLDEN) {
             status = GOLDEN;
@@ -237,6 +243,21 @@ public class Customer extends Person {
         else if (status == SILVER) {
             double amountNeeded = GOLDEN_THRESHOLD - totalSpent;
             System.out.println("You need to spend " + amountNeeded + " TL to become a GOLDEN MEMBER");
+        }
+    }
+
+
+
+    public void displayOrderHistory() {
+        if (orderHistory.isEmpty()) {
+            System.out.println("No orders for customer " + customerID);
+            return;
+        }
+
+
+        for (Order order : orderHistory) {
+            order.displayOrderInfo();
+            System.out.println("-----");
         }
     }
 }
