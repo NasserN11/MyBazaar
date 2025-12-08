@@ -429,7 +429,29 @@ public class MyBazaar {
         System.out.println("No customer with ID number " + ID + " exists!");
     }
 
-    private void handleShowCampaigns(String customerID) {}
+    private void handleShowCampaigns(String customerID_str) {
+
+        int customerID = Integer.parseInt(customerID_str);
+
+        // Find customer
+        Customer targetCustomer = null;
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+                if (customer.getCustomerID() == customerID) {
+                    targetCustomer = customer;
+                    break;
+                }
+            }
+        }
+
+        if (targetCustomer == null) {
+            System.out.println("No customer with ID number " + customerID + " exists!");
+            return;
+        }
+
+        targetCustomer.viewCampaigns(allCampaigns);
+    }
 
     private void handleAddToCart(String customerID_str, String itemID_str) {
 
@@ -476,13 +498,60 @@ public class MyBazaar {
 
     private void handleEmptyCart(String customerID) {}
 
-    private void handleOrder(String customerID, String password) {}
+    private void handleOrder(String customerID_str, String password) {
+
+        int customerID = Integer.parseInt(customerID_str);
+
+        // Find user
+        Customer targetCustomer = null;
+        for (Person p : allUsers) {
+            if (p instanceof Customer) {
+                Customer customer = (Customer) p;
+
+                if (customer.getCustomerID() == customerID) {
+                    targetCustomer = customer;
+                    break;
+                }
+            }
+        }
+
+        if (targetCustomer == null) {
+            System.out.println("No customer with ID number " + customerID + " exists!");
+            return;
+        }
+
+        targetCustomer.placeOrder(password, allCampaigns);
+
+    }
 
 
     // Admin
     private void handleAddCustomer(String adminName, String customerName, String email,
+                                   String dateOfBirth, String initialBalance_str, String password) {
 
-                                   String dateOfBirth, String initialBalance, String password) {}
+        boolean adminExists = false;
+
+        // Find admin
+        for (Person p : allUsers) {
+            if (p instanceof Admin && p.getName().equals(adminName)) {
+                adminExists = true;
+                break;
+            }
+        }
+
+        if (!adminExists) {
+            System.out.println("No admin person named " + adminName + " exists!");
+            return;
+        }
+
+        // Create new customer
+        int newCustomerID = nextCustomerID++;
+        double  initialBalance = Double.parseDouble(initialBalance_str);
+
+        Customer newCustomer = new Customer(customerName, email, dateOfBirth, newCustomerID, password);
+        allUsers.add(newCustomer);
+        System.out.println("Customer " + customerName + " added successfully with ID; " + newCustomerID);
+    }
 
     private void handleShowCustomer(String adminName, String customerID) {
 

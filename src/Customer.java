@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Customer extends Person {
@@ -131,7 +132,110 @@ public class Customer extends Person {
     }
 
 
-    public void viewCampaigns() {
+    public void placeOrder(String password, ArrayList<Campaign> activeCampaign) {
 
+
+        // Cart empty check
+        if (shoppingCart.isEmpty()) {
+            System.out.println("You should add some items to your cart before order request!");
+            return;
+        }
+
+        // Password check
+        if (!this.password.equals(password)) {
+            System.out.println("Order could not be placed. Invalid password.");
+            return;
+        }
+
+        // Calculate total
+        double subTotal = 0;
+
+        for (Item item : shoppingCart) {
+            double itemPrice = item.getPrice();
+
+            // Check for campaign discount
+            for (Campaign campaign : activeCampaign) {
+                if(campaign.getItemType().equals(item.getItemType())) {
+                    double discountRate = campaign.getDiscountRate() / 100;
+
+                    itemPrice = itemPrice * (1 - discountRate);
+
+                }
+            }
+            subTotal += itemPrice;
+        }
+
+        // Apply membership discount
+        double total = subTotal;
+        if (status == SILVER) {
+            total = subTotal * (1 - SILVER_DISCOUNT_RATE);
+        }
+        else if (status == GOLDEN) {
+            total = subTotal * (1 - GOLDEN_DISCOUNT_RATE);
+        }
+
+        // Check balance
+        if (balance < total) {
+            System.out.println("Order could not be placed. Inufficient funds.");
+            return;
+        }
+
+        // Process order
+        balance -= total;
+        totalSpent += total;
+
+        // Decrease stock
+        for (Item item : shoppingCart) {
+            item.setStock(item.getStock() - 1);
+        }
+
+        // Create and save order
+        String currentDate = "Current Date";
+        Order order = new Order(customerID, shoppingCart, total, currentDate);
+
+        // Check status upgrade
+
+
+        // Clear cart
+        shoppingCart.clear();
+
+
+        System.out.println("Done! Your order will be delivered as soon as possible. Thank you!");
+    }
+
+
+    public void viewCampaigns(ArrayList<Campaign> allCampaigns) {
+
+        if(allCampaigns.isEmpty()) {
+            System.out.println("No campaign has been created so far!");
+            return;
+        }
+
+        System.out.println("Active campaigns:");
+        for (Campaign campaign : allCampaigns) {
+            System.out.println(campaign.getDiscountRate() + "% sale of " + campaign.getItemType() + " until " + campaign.getEndDate());
+        }
+    }
+
+
+    private void checkAndUpdateStatus() {
+        if (totalSpent >= GOLDEN_THRESHOLD && status != GOLDEN) {
+            status = GOLDEN;
+            System.out.println("Congratulations! You have been upgraded to a GOLDEN MEMBER! You have earned\n" +
+                    "a discount of 15% on all purchases.");
+        }
+        else if (totalSpent >= SILVER_THRESHOLD && status != SILVER) {
+            status = SILVER;
+            System.out.println("Congratulations! You have been upgraded to a SILVER MEMBER! You have earned\n" +
+                    "a discount of 10% on all purchases.");
+        }
+        else if (status == CLASSIC) {
+            double amountNeeded = SILVER_THRESHOLD - totalSpent;
+            System.out.println("You need to spend " + amountNeeded + " more TL to become a SILVER MEMBER.");
+        }
+        else if (status == SILVER) {
+            double amountNeeded = GOLDEN_THRESHOLD - totalSpent;
+            System.out.println("You need to spend " + amountNeeded + " TL to become a GOLDEN MEMBER");
+        }
     }
 }
